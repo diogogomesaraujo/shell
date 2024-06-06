@@ -1,4 +1,3 @@
-// execute.c
 #include "shell.h"
 
 int ultimo(int *numargs, char **args) {
@@ -10,14 +9,8 @@ int ultimo(int *numargs, char **args) {
     return FG; // Retorna FG se for processo em primeiro plano
 }
 
-void execute(int numargs, char **args)
-{
+void execute(int numargs, char **args) {
     int pid, status;
-    numargs = 0;
-
-    while (args[numargs] != NULL) {
-        numargs++;
-    }
 
     int code = ultimo(&numargs, args); // Verifica se é processo em background ou foreground
 
@@ -27,8 +20,7 @@ void execute(int numargs, char **args)
     }
 
     if (pid == 0) { // Processo filho
-
-        numargs = redirects(numargs, args);
+        numargs = redirects(numargs, args); // Adiciona a chamada ao redirects aqui
 
         execvp(*args, args); // Executa o comando
         perror(*args);
